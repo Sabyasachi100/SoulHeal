@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const path = require("path");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
@@ -21,7 +22,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/mood", moodRoutes);
@@ -30,10 +31,25 @@ app.use("/api/appointments", appointmentRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/users", userRoutes);
 
-// Root Route
-app.get("/", (req, res) => {
-  res.send("SoulHeal API is running... 🚀");
+// Root Route for API check
+app.get("/api/health", (req, res) => {
+  res.send("SoulHeal API is healthy... 🚀");
 });
+
+// ─── SERVE FRONTEND IN PRODUCTION ──────────────────────────────────────────
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  // Any route that is not an API route should serve index.html
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("SoulHeal API is running in development mode...");
+  });
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {

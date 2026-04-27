@@ -1,10 +1,11 @@
 import axios from "axios";
 
-// Automatically use the Render URL in production, and localhost in development
+// Since we are now using a monorepo deployment (Backend serving Frontend),
+// the API is on the same domain in production.
 const API = axios.create({
   baseURL: import.meta.env.MODE === "production" 
-    ? "https://soulheal.onrender.com/api" 
-    : "/api",
+    ? "/api" 
+    : "/api", // Local Proxy handles this in dev
 });
 
 // Add a request interceptor to include the auth token
