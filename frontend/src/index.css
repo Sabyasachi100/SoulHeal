@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --abyss:   #071a1f;
+  --deep:    #0c2a32;
+  --mid:     #113640;
+  --surface: #16464f;
+  --shore:   #1e6070;
+
+  /* Borders */
+  --border:   rgba(100, 200, 190, 0.15);
+  --border-h: rgba(94, 207, 191, 0.35);
+
+  /* Brand colours */
+  --accent:  #5ecfbf;
+  --accent2: #a8e6df;
+  --sand:    #d4b896;
+
+  /* Text */
+  --text:  #dff4f1;
+  --muted: rgba(190, 235, 230, 0.52);
+
+  /* Legacy aliases (keeps existing component code working) */
+  --primary:   #5ecfbf;
+  --secondary: #a8e6df;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans:  'Jost', sans-serif;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────────── */
+body {
+  background:  var(--abyss);
+  color:       var(--text);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  min-height:  100vh;
+  margin:      0;
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--abyss); }
+::-webkit-scrollbar-thumb { background: var(--mid); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--surface); }
+
+/* ─── Cards ──────────────────────────────────────────────────────────────────── */
+
+/* Main card — replaces .premium-card */
+.premium-card {
+  background:        var(--deep);
+  backdrop-filter:   blur(16px);
+  border:            0.5px solid var(--border);
+  border-radius:     1rem;
+  padding:           1.5rem;
+  transition:        border-color 0.3s ease, transform 0.3s ease;
+}
+.premium-card:hover {
+  border-color: var(--border-h);
+  transform:    translateY(-2px);
+}
+
+/* Glass overlay — replaces .glass-morph */
+.glass-morph {
+  background:      rgba(7, 26, 31, 0.65);
+  backdrop-filter: blur(14px);
+  border:          0.5px solid var(--border);
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────────── */
+
+/* Primary CTA — replaces .gradient-btn */
+.gradient-btn {
+  background:    var(--accent);
+  color:         var(--abyss);
+  padding:       0.65rem 1.6rem;
+  border-radius: 9999px;
+  font-family:   var(--font-sans);
+  font-weight:   500;
+  font-size:     0.88rem;
+  letter-spacing: 0.06em;
+  border:        none;
+  cursor:        pointer;
+  transition:    transform 0.2s ease, opacity 0.2s ease;
+}
+.gradient-btn:hover {
+  opacity:   0.9;
+  transform: translateY(-2px);
+}
+
+/* Ghost / outline button */
+.ghost-btn {
+  background:    transparent;
+  color:         var(--accent);
+  padding:       0.6rem 1.5rem;
+  border-radius: 9999px;
+  border:        0.5px solid var(--accent);
+  font-family:   var(--font-sans);
+  font-size:     0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor:        pointer;
+  transition:    background 0.25s, color 0.25s;
+}
+.ghost-btn:hover {
+  background: var(--accent);
+  color:      var(--abyss);
+}
+
+/* ─── Navigation ─────────────────────────────────────────────────────────────── */
+.nav-link {
+  color:       var(--muted);
+  text-decoration: none;
+  font-size:   0.82rem;
+  font-weight: 400;
+  font-family: var(--font-sans);
+  letter-spacing: 0.08em;
+  transition:  color 0.25s ease;
+  position:    relative;
+  padding:     0.45rem 0.9rem;
+  border-radius: 8px;
+}
+.nav-link:hover {
+  color:       var(--accent);
+  background:  rgba(94, 207, 191, 0.08);
+}
+.nav-link.active {
+  color:       var(--accent);
+  background:  rgba(94, 207, 191, 0.1);
+}
+
+/* ─── Typography helpers ─────────────────────────────────────────────────────── */
+
+/* Replaces .text-gradient (purple→pink) with teal→sand */
+.text-gradient {
+  background:              linear-gradient(to right, var(--accent), var(--sand));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip:         text;
+}
+
+.serif { font-family: var(--font-serif); }
+.serif-italic { font-family: var(--font-serif); font-style: italic; }
+
+/* ─── Form elements ──────────────────────────────────────────────────────────── */
+.ocean-input {
+  width:         100%;
+  background:    rgba(7, 26, 31, 0.6);
+  border:        0.5px solid var(--border);
+  border-radius: 10px;
+  color:         var(--text);
+  font-family:   var(--font-sans);
+  font-size:     0.9rem;
+  font-weight:   300;
+  padding:       0.75rem 1rem;
+  outline:       none;
+  transition:    border-color 0.2s, background 0.2s;
+}
+.ocean-input::placeholder { color: rgba(190, 235, 230, 0.3); }
+.ocean-input:focus {
+  border-color: var(--border-h);
+  background:   rgba(17, 54, 64, 0.5);
+}
+
+/* ─── Utility ────────────────────────────────────────────────────────────────── */
+.text-accent  { color: var(--accent); }
+.text-sand    { color: var(--sand); }
+.text-muted   { color: var(--muted); }
+.bg-deep      { background: var(--deep); }
+.bg-mid       { background: var(--mid); }
+.border-ocean { border: 0.5px solid var(--border); }
+
+/* ─── Animations ─────────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes waveMove {
+  from { background-position: 0 bottom; }
+  to   { background-position: 1440px bottom; }
+}
+@keyframes bubbleRise {
+  0%   { transform: translateY(0);      opacity: 0.5; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+
+.fade-up    { animation: fadeUp 0.7s ease both; }
+.pulse-dot  {
+  display:       inline-block;
+  width:         7px; height: 7px;
+  border-radius: 50%;
+  background:    #4ade80;
+  animation:     pulse 2s ease-in-out infinite;
+}
