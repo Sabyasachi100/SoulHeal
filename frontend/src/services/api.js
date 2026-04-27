@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// Automatically use the Render URL in production, and localhost in development
 const API = axios.create({
-  baseURL: "/api",
+  baseURL: import.meta.env.MODE === "production" 
+    ? "https://soulheal.onrender.com/api" 
+    : "/api",
 });
 
 // Add a request interceptor to include the auth token
